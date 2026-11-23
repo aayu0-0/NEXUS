@@ -1,0 +1,4 @@
+../Core/Src/fault_watchdog_reset.c:49:6:WDT_CheckResetCause	2
+../Core/Src/fault_watchdog_reset.c:78:13:IWDG_Enable	1
+../Core/Src/fault_watchdog_reset.c:91:20:IWDG_Kick	1
+../Core/Src/fault_watchdog_reset.c:96:6:Task_FaultWatchdogReset	2

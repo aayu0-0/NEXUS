@@ -1,0 +1,101 @@
+/**
+ * @file  fault_task_create_fail.c
+ * @brief NEXUS — Task creation failure fault injection
+ *
+ * Strategy:
+ *   Phase 1 — Normal operation cycles.
+ *   Phase 2 — Repeatedly create dummy tasks without deleting them.
+ *             Each creation drains heap (stack + TCB).
+ *             EVT_LOW_HEAP warned when free heap drops below threshold.
+ *   Phase 3 — xTaskCreate() fails, fault declared.
+ */
+
+#include "fault_task_create_fail.h"
+#include "logger.h"
+
+#include "FreeRTOS.h"
+#include "task.h"
+
+#define TCF_NORMAL_CYCLES       20u
+#define TCF_PERIOD_MS           30u
+#define TCF_DUMMY_STACK_WORDS  128u
+#define TCF_LOW_HEAP_THRESHOLD 2048u
+
+static volatile uint32_t s_created_count = 0u;
+
+/* -----------------------------------------------------------
+ * Dummy task — suspends immediately, never deleted
+ * Exists only to consume heap (stack + TCB)
+ * ----------------------------------------------------------*/
+
+static void DummyTask(void *pvParameters)
+{
+    (void)pvParameters;
+
+    for (;;)
+    {
+        vTaskDelay(portMAX_DELAY);
+    }
+}
+
+/* -----------------------------------------------------------
+ * Fault injection task
+ * ----------------------------------------------------------*/
+
+void Task_FaultTaskCreateFail(void *pvParameters)
+{
+    (void)pvParameters;
+
+    /* -------------------------------------------------------
+     * Normal operation phase
+     * ------------------------------------------------------*/
+
+    for (uint32_t i = 0u; i < TCF_NORMAL_CYCLES; i++)
+    {
+        LOG_INFO(EVT_TASK_START, i);
+
+        vTaskDelay(pdMS_TO_TICKS(TCF_PERIOD_MS));
+
+        LOG_INFO(EVT_TASK_END, i);
+    }
+
+    /* -------------------------------------------------------
+     * Fault injection phase
+     * ------------------------------------------------------*/
+
+    for (;;)
+    {
+        /* Warn when heap is getting tight */
+        if (xPortGetFreeHeapSize() < TCF_LOW_HEAP_THRESHOLD)
+        {
+            LOG_WARN(EVT_LOW_HEAP,
+                     (uint32_t)xPortGetFreeHeapSize());
+        }
+
+        BaseType_t result = xTaskCreate(
+            DummyTask,
+            "DUMMY",
+            TCF_DUMMY_STACK_WORDS,
+            NULL,
+            1u,
+            NULL);
+
+        if (result != pdPASS)
+        {
+            /* payload = how many tasks succeeded before failure */
+            LOG_FAULT(EVT_TASK_CREATE_FAIL, s_created_count);
+
+            taskDISABLE_INTERRUPTS();
+
+            for (;;)
+            {
+                __NOP();
+            }
+        }
+
+        /* EVT_USER_0 = successful dummy task creation */
+        s_created_count++;
+
+        LOG_INFO(EVT_USER_0, s_created_count);
+    }
+}

@@ -1,0 +1,85 @@
+19:44:22 **** Incremental Build of configuration Debug for project Phase 1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/Logger.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Logger.d" -MT"Core/Src/Logger.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Logger.o"
+arm-none-eabi-gcc "../Core/Src/fault_chain.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_chain.d" -MT"Core/Src/fault_chain.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_chain.o"
+arm-none-eabi-gcc "../Core/Src/fault_comm_timeout.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_comm_timeout.d" -MT"Core/Src/fault_comm_timeout.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_comm_timeout.o"
+arm-none-eabi-gcc "../Core/Src/fault_hard_fault.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_hard_fault.d" -MT"Core/Src/fault_hard_fault.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_hard_fault.o"
+arm-none-eabi-gcc "../Core/Src/fault_memory_exhaustion.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_memory_exhaustion.d" -MT"Core/Src/fault_memory_exhaustion.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_memory_exhaustion.o"
+arm-none-eabi-gcc "../Core/Src/fault_priority_inversion.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_priority_inversion.d" -MT"Core/Src/fault_priority_inversion.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_priority_inversion.o"
+arm-none-eabi-gcc "../Core/Src/fault_queue_overflow.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_queue_overflow.d" -MT"Core/Src/fault_queue_overflow.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_queue_overflow.o"
+arm-none-eabi-gcc "../Core/Src/fault_stack_overflow.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_stack_overflow.d" -MT"Core/Src/fault_stack_overflow.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_stack_overflow.o"
+arm-none-eabi-gcc "../Core/Src/fault_task_create_fail.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_task_create_fail.d" -MT"Core/Src/fault_task_create_fail.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_task_create_fail.o"
+arm-none-eabi-gcc "../Core/Src/fault_watchdog_reset.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_watchdog_reset.d" -MT"Core/Src/fault_watchdog_reset.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_watchdog_reset.o"
+arm-none-eabi-gcc "../Core/Src/fault_watchdog_timeout.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/fault_watchdog_timeout.d" -MT"Core/Src/fault_watchdog_timeout.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/fault_watchdog_timeout.o"
+arm-none-eabi-gcc "../Core/Src/freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F401xC -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/freertos.d" -MT"Core/Src/freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/freertos.o"
+../Core/Src/fault_task_create_fail.c: In function 'Task_FaultTaskCreateFail':
+../Core/Src/fault_task_create_fail.c:104:17: error: implicit declaration of function '__NOP' [-Wimplicit-function-declaration]
+  104 |                 __NOP();
+      |                 ^~~~~
+../Core/Src/fault_memory_exhaustion.c: In function 'Task_FaultMemExhaustion':
+../Core/Src/fault_memory_exhaustion.c:131:9: error: implicit declaration of function '__NOP' [-Wimplicit-function-declaration]
+  131 |         __NOP();
+      |         ^~~~~
+../Core/Src/fault_comm_timeout.c: In function 'Task_FaultCommTimeout':
+../Core/Src/fault_queue_overflow.c: In function 'Task_FaultQueueOverflow':
+../Core/Src/fault_comm_timeout.c:121:21: error: implicit declaration of function '__NOP' [-Wimplicit-function-declaration]
+  121 |                     __NOP();
+      |                     ^~~~~
+../Core/Src/fault_queue_overflow.c:40:13: error: implicit declaration of function '__NOP' [-Wimplicit-function-declaration]
+   40 |             __NOP();
+      |             ^~~~~
+../Core/Src/fault_stack_overflow.c: In function 'vApplicationStackOverflowHook':
+../Core/Src/fault_priority_inversion.c: In function 'LowTask':
+../Core/Src/fault_stack_overflow.c:74:9: error: implicit declaration of function '__NOP' [-Wimplicit-function-declaration]
+   74 |         __NOP();
+      |         ^~~~~
+../Core/Src/fault_priority_inversion.c:76:17: error: implicit declaration of function '__NOP' [-Wimplicit-function-declaration]
+   76 |                 __NOP();
+      |                 ^~~~~
+../Core/Src/fault_watchdog_timeout.c: In function 'WatchdogTimerCallback':
+../Core/Src/fault_watchdog_timeout.c:49:9: error: implicit declaration of function '__NOP' [-Wimplicit-function-declaration]
+   49 |         __NOP();
+      |         ^~~~~
+../Core/Src/fault_chain.c: In function 'WatchdogCallback':
+../Core/Src/fault_chain.c:87:13: error: implicit declaration of function '__NOP' [-Wimplicit-function-declaration]
+   87 |             __NOP();
+      |             ^~~~~
+make: *** [Core/Src/subdir.mk:79: Core/Src/fault_memory_exhaustion.o] Error 1
+make: *** Waiting for unfinished jobs....
+make: *** [Core/Src/subdir.mk:79: Core/Src/fault_comm_timeout.o] Error 1
+make: *** [Core/Src/subdir.mk:79: Core/Src/fault_queue_overflow.o] Error 1
+make: *** [Core/Src/subdir.mk:79: Core/Src/fault_stack_overflow.o] Error 1
+make: *** [Core/Src/subdir.mk:79: Core/Src/fault_priority_inversion.o] Error 1
+make: *** [Core/Src/subdir.mk:79: Core/Src/fault_task_create_fail.o] Error 1
+make: *** [Core/Src/subdir.mk:79: Core/Src/fault_watchdog_timeout.o] Error 1
+make: *** [Core/Src/subdir.mk:79: Core/Src/fault_chain.o] Error 1
+../Core/Src/fault_watchdog_reset.c:44:9: warning: "RCC_CSR_IWDGRSTF_Pos" redefined
+   44 | #define RCC_CSR_IWDGRSTF_Pos   29u
+      |         ^~~~~~~~~~~~~~~~~~~~
+In file included from ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h:144,
+                 from ../Core/Src/fault_watchdog_reset.c:15:
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xc.h:4541:9: note: this is the location of the previous definition
+ 4541 | #define RCC_CSR_IWDGRSTF_Pos               (29U)
+      |         ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/fault_watchdog_reset.c:45:9: warning: "RCC_CSR_IWDGRSTF_Msk" redefined
+   45 | #define RCC_CSR_IWDGRSTF_Msk   (1u << RCC_CSR_IWDGRSTF_Pos)
+      |         ^~~~~~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xc.h:4542:9: note: this is the location of the previous definition
+ 4542 | #define RCC_CSR_IWDGRSTF_Msk               (0x1UL << RCC_CSR_IWDGRSTF_Pos)      /*!< 0x20000000 */
+      |         ^~~~~~~~~~~~~~~~~~~~
+../Core/Src/fault_watchdog_reset.c:46:9: warning: "RCC_CSR_RMVF_Pos" redefined
+   46 | #define RCC_CSR_RMVF_Pos       24u
+      |         ^~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xc.h:4526:9: note: this is the location of the previous definition
+ 4526 | #define RCC_CSR_RMVF_Pos                   (24U)
+      |         ^~~~~~~~~~~~~~~~
+../Core/Src/fault_watchdog_reset.c:47:9: warning: "RCC_CSR_RMVF_Msk" redefined
+   47 | #define RCC_CSR_RMVF_Msk       (1u << RCC_CSR_RMVF_Pos)
+      |         ^~~~~~~~~~~~~~~~
+../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f401xc.h:4527:9: note: this is the location of the previous definition
+ 4527 | #define RCC_CSR_RMVF_Msk                   (0x1UL << RCC_CSR_RMVF_Pos)          /*!< 0x01000000 */
+      |         ^~~~~~~~~~~~~~~~
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+
+19:44:24 Build Failed. 17 errors, 4 warnings. (took 2s.91ms)
+

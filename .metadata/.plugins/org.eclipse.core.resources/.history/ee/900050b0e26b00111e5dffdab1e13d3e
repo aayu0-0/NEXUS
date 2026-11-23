@@ -1,0 +1,95 @@
+#include "fault_memory_exhaustion.h"
+#include "logger.h"
+
+#include "FreeRTOS.h"
+#include "task.h"
+
+#include <stddef.h>
+
+#define MEM_CHUNK_BYTES      512u
+#define MEM_WARNING_BYTES    2048u
+#define MEM_NORMAL_CYCLES    20u
+#define MEM_PERIOD_MS        30u
+
+/* Number of successful allocations before failure */
+static volatile uint32_t s_alloc_count = 0u;
+
+/* -----------------------------------------------------------
+ * Heap exhaustion fault trigger
+ * ----------------------------------------------------------*/
+
+void TriggerFault_MemExhaustion(void)
+{
+    for (;;)
+    {
+        size_t free_heap = xPortGetFreeHeapSize();
+
+        /* Generate warning when heap becomes low */
+        if (free_heap < MEM_WARNING_BYTES)
+        {
+            LOG_WARN(EVT_LOW_HEAP, (uint32_t)free_heap);
+        }
+
+        /* Intentionally leak memory */
+        volatile void *p = pvPortMalloc(MEM_CHUNK_BYTES);
+
+        /* Allocation failure is handled by
+           vApplicationMallocFailedHook() */
+        if (p == NULL)
+        {
+            break;
+        }
+
+        (void)p;
+
+        s_alloc_count++;
+
+        /* Slow down consumption for easier observation */
+        vTaskDelay(pdMS_TO_TICKS(10u));
+    }
+}
+
+/* -----------------------------------------------------------
+ * Fault injection task
+ * ----------------------------------------------------------*/
+
+void Task_FaultMemExhaustion(void *pvParameters)
+{
+    (void)pvParameters;
+
+    /* Normal operation phase */
+    for (uint32_t i = 0u; i < MEM_NORMAL_CYCLES; i++)
+    {
+        LOG_INFO(EVT_TASK_START, i);
+
+        vTaskDelay(pdMS_TO_TICKS(MEM_PERIOD_MS));
+
+        LOG_INFO(EVT_TASK_END, i);
+    }
+
+    TriggerFault_MemExhaustion();
+
+    for (;;)
+    {
+        __NOP();
+    }
+}
+
+/* -----------------------------------------------------------
+ * FreeRTOS malloc failed hook
+ * ----------------------------------------------------------*/
+
+void vApplicationMallocFailedHook(void)
+{
+
+    LOG_FAULT(EVT_MEM_ALLOC_FAIL, s_alloc_count);
+
+    Logger_DumpUART();
+
+    taskDISABLE_INTERRUPTS();
+
+    for (;;)
+    {
+        __NOP();
+    }
+}

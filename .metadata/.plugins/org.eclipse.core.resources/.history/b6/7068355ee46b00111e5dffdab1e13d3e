@@ -1,0 +1,189 @@
+#ifndef LOGGER_H
+#define LOGGER_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#include <stdint.h>
+#include "FreeRTOS.h"
+#include "semphr.h"
+
+#ifndef LOG_BUFFER_SIZE
+#define LOG_BUFFER_SIZE     512u
+#endif
+
+#ifndef LOG_MUTEX_TIMEOUT_MS
+#define LOG_MUTEX_TIMEOUT_MS  5u
+#endif
+
+// Log level => This part is used to tell what level of log is stored
+// Only at level 4 (Fault) will the system dump on serial monitor using UART
+
+typedef enum {
+    LVL_DEBUG   = 0,
+    LVL_INFO    = 1,
+    LVL_WARN    = 2,
+    LVL_ERROR   = 3,
+    LVL_FAULT   = 4
+} LogLevel_t;
+
+// Event level => This part is used to tell what type of event is stored in the log
+
+typedef enum {
+    EVT_NONE              = 0x00,
+
+    // System reset
+    EVT_WDG_RESET         = 0x01,   //watch dog trigger
+	EVT_BOOT 			  = 0x02,	// Boot
+	EVT_WDT_KICK	 	  = 0x03,	// Watchdog serviced
+	EVT_WDT_TIMEOUT       = 0x04,	// Watchdog timeout (software-simulated, CPU halts)
+	EVT_WDT_HW_RESET      = 0x05,	// Hardware IWDG reset detected on boot (RCC_CSR)
+
+	// System fault
+    EVT_HARD_FAULT        = 0x10,   // Cortex-M HardFault exception
+    EVT_ASSERT_FAIL       = 0x11,   // configASSERT() triggered
+    EVT_STACK_OVERFLOW    = 0x12,   // FreeRTOS task stack overflow
+
+    // Memory
+    EVT_MEM_ALLOC_FAIL    = 0x20,   // Memory full
+    EVT_LOW_HEAP          = 0x21,   // Heap below warning threshold
+
+    // RTOS
+	EVT_TASK_CREATE_FAIL  = 0x30,   // xTaskCreate() failed
+	EVT_QUEUE_OVERFLOW    = 0x31,   // Queue full, message dropped
+	EVT_TASK_START        = 0x32,	// Task start
+	EVT_TASK_END          = 0x33,	// Task end
+	EVT_STACK_WARNING     = 0x34,	// Remaining stack below warning threshold
+
+    // Communication
+    EVT_COMM_TIMEOUT      = 0x40,   // UART/SPI/I2C timeout
+    EVT_COMM_ERROR        = 0x41,   // CRC/NACK/framing/bus error
+
+    // Application specific, you can add your own errors for your project
+    EVT_USER_0	          = 0x50,
+    EVT_USER_1            = 0x51,
+    EVT_USER_2		      = 0x52,
+    EVT_USER_3            = 0x53,
+
+    EVT_MAX              = 0xFF // just used to validate so that you don't enter any event outside the documented one.
+} LogEventID_t;
+
+
+//struct to tell you about the log
+
+typedef struct __attribute__((packed)) {
+    uint32_t    timestamp;      // time-stamp
+    uint8_t     level;          // level of log
+    uint8_t     event_id;       // ID of the event
+    uint32_t    payload;        // what you tell to the user
+} LogEntry_t;
+
+// check the size if false return -1
+typedef char _log_entry_size_check[ (sizeof(LogEntry_t) == 10u) ? 1 : -1 ];
+
+// actual buffer tells that is shown to you on serial monitor or CSV
+
+typedef struct {
+    LogEntry_t          buffer[LOG_BUFFER_SIZE];
+    volatile uint32_t   head;           // head of the queue
+    volatile uint32_t   tail;           // tail of the queue
+    volatile uint32_t   count;          // total count of the logs
+    volatile uint32_t   overflow_count; // total overflow count (ring buffer wraparound)
+    volatile uint32_t   dropped_count;  // total entries lost to mutex timeout
+    SemaphoreHandle_t   mutex;			// mutex to handle conflict
+    LogLevel_t          min_level;      // this is the min level everything below this level is dropped
+} LogBuffer_t;
+
+
+
+
+
+// APIs
+
+BaseType_t  Logger_Init(void);														 //Initialize logger
+
+
+void        Logger_Log(LogLevel_t level, LogEventID_t event_id, uint32_t payload);   // Store one log entry
+
+
+void        Logger_Log_FromISR(LogLevel_t       level,
+                               LogEventID_t     event_id,
+                               uint32_t         payload,
+                               BaseType_t      *pxHigherPriorityTaskWoken);    		 // ISR-safe log entry write
+
+
+void        Logger_DumpUART(void);		 											// Output all stored log entries on serial monitor
+
+
+void        Logger_StreamUART(LogLevel_t level,
+                               LogEventID_t event_id,
+                               uint32_t payload);									// Stream a single entry live over UART (not stored)
+
+
+void        Logger_SetMinLevel(LogLevel_t level); 				 					// Set minimum accepted log level
+
+
+uint32_t    Logger_GetCount(void);													// Get current number of stored entries
+
+
+uint32_t    Logger_GetOverflowCount(void);											// Get number of overwritten entries
+
+
+uint32_t    Logger_GetDroppedCount(void);											// Get number of entries dropped due to mutex timeout
+
+
+void        Logger_Clear(void);														// Reset ring buffer contents
+
+
+
+// MACROS
+
+
+#define LOG_DEBUG(evt, pay) \
+    Logger_Log(LVL_DEBUG, (evt), (uint32_t)(pay))
+
+
+#define LOG_INFO(evt, pay) \
+    Logger_Log(LVL_INFO, (evt), (uint32_t)(pay))
+
+
+#define LOG_WARN(evt, pay) \
+    Logger_Log(LVL_WARN, (evt), (uint32_t)(pay))
+
+
+#define LOG_ERROR(evt, pay) \
+    Logger_Log(LVL_ERROR, (evt), (uint32_t)(pay))
+
+
+#define LOG_FAULT(evt, pay) \
+    Logger_Log(LVL_FAULT, (evt), (uint32_t)(pay))
+
+
+#define LOG_FAULT_NOW(evt, pay) \
+    do { \
+        LOG_FAULT((evt), (pay)); \
+        Logger_DumpUART(); \
+    } while (0)
+
+
+#define LOG_IF_FAULT(cond, evt, pay) \
+    do { \
+        if (cond) { \
+            LOG_FAULT((evt), (pay)); \
+        } \
+    } while (0)
+
+#define LOG_IF_FAULT_NOW(cond, evt, pay) \
+    do { \
+        if (cond) { \
+            LOG_FAULT_NOW((evt), (pay)); \
+        } \
+    } while (0)
+
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* LOGGER_H */

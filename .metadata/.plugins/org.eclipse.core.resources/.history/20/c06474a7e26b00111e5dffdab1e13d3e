@@ -1,0 +1,15 @@
+#ifndef FAULT_MEMORY_EXHAUSTION_H
+#define FAULT_MEMORY_EXHAUSTION_H
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void TriggerFault_MemExhaustion(void);
+void Task_FaultMemExhaustion(void *pvParameters);
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* FAULT_MEMORY_EXHAUSTION_H */

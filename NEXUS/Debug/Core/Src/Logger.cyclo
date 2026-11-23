@@ -1,0 +1,12 @@
+../Core/Src/Logger.c:42:6:Logger_UART_Transmit	1
+../Core/Src/Logger.c:67:13:write_entry_locked	2
+../Core/Src/Logger.c:91:12:Logger_Init	2
+../Core/Src/Logger.c:110:6:Logger_Log	6
+../Core/Src/Logger.c:142:6:Logger_Log_FromISR	5
+../Core/Src/Logger.c:170:6:Logger_StreamUART	1
+../Core/Src/Logger.c:190:6:Logger_DumpUART	3
+../Core/Src/Logger.c:232:6:Logger_SetMinLevel	1
+../Core/Src/Logger.c:238:10:Logger_GetCount	1
+../Core/Src/Logger.c:244:10:Logger_GetOverflowCount	1
+../Core/Src/Logger.c:250:10:Logger_GetDroppedCount	1
+../Core/Src/Logger.c:256:6:Logger_Clear	2
